@@ -1,22 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { memo } from "react";
 import { useDispatch } from "react-redux";
-import {
-  removeTask,
-  toggleComplete,
-  editTask,
-} from "../../redux/taskList/taskListSlice";
-import { FaEdit, FaTrash, FaCheck, FaTimes } from "react-icons/fa";
+import { removeTask, toggleComplete } from "../../store/slices/taskListSlice";
+import { FaEdit, FaTrash, FaCheck } from "react-icons/fa";
 import "./TaskItem.scss";
 import {
   setAddTaskVisibility,
   setEditModalVisibility,
   setEditTodo,
-} from "../../redux/taskList/isAdd";
+} from "../../store/slices/isAdd";
 
 const TaskItem = ({ task }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const editTitleRef = useRef(null);
-  const editDescriptionRef = useRef(null);
   const dispatch = useDispatch();
 
   // Start editing mode
@@ -25,28 +18,6 @@ const TaskItem = ({ task }) => {
     dispatch(setAddTaskVisibility(true));
     dispatch(setEditTodo(task));
     dispatch(setEditModalVisibility(true));
-  };
-
-  // Save edited task
-  const handleSave = () => {
-    const newTitle = editTitleRef.current.value;
-    const newDescription = editDescriptionRef.current.value;
-
-    if (newTitle && newDescription) {
-      dispatch(
-        editTask({
-          id: task.id,
-          title: newTitle,
-          description: newDescription,
-        })
-      );
-      setIsEditing(false);
-    }
-  };
-
-  // Cancel editing
-  const handleCancel = () => {
-    setIsEditing(false);
   };
 
   // Handle task completion toggle
@@ -61,57 +32,35 @@ const TaskItem = ({ task }) => {
 
   return (
     <div className={`task-item ${task.isCompleted ? "completed" : ""}`}>
-      {isEditing ? (
-        // Edit mode
-        <div className="task-edit-mode">
-          <input
-            ref={editTitleRef}
-            type="text"
-            defaultValue={task.title}
-            placeholder="Task title"
-            className="edit-title"
-          />
-          <input
-            ref={editDescriptionRef}
-            type="text"
-            defaultValue={task.description}
-            placeholder="Description"
-            className="edit-description"
-          />
-          <div className="task-action-buttons">
-            <button onClick={handleCancel} className="cancel-btn">
-              <FaTimes /> Cancel
-            </button>
-            <button onClick={handleSave} className="save-btn">
-              <FaCheck /> Save
-            </button>
-          </div>
+      <div className="task-view-mode">
+        <div className="task-content">
+          <h3
+            className="task-title"
+            style={{
+              textDecoration: task.isCompleted ? "line-through" : "inherit",
+            }}
+          >
+            {task.title}
+          </h3>
+          <p className="task-description">{task.description}</p>
         </div>
-      ) : (
-        // View mode
-        <div className="task-view-mode">
-          <div className="task-content">
-            <h3 className="task-title">{task.title}</h3>
-            <p className="task-description">{task.description}</p>
-          </div>
-          <div className="task-actions">
-            <button
-              onClick={handleToggle}
-              className={`toggle-btn ${task.isCompleted ? "completed" : ""}`}
-            >
-              <FaCheck />
-            </button>
-            <button onClick={handleEdit} className="edit-btn">
-              <FaEdit />
-            </button>
-            <button onClick={handleDelete} className="delete-btn">
-              <FaTrash />
-            </button>
-          </div>
+        <div className="task-actions">
+          <button
+            onClick={handleToggle}
+            className={`toggle-btn ${task.isCompleted ? "completed" : ""}`}
+          >
+            <FaCheck />
+          </button>
+          <button onClick={handleEdit} className="edit-btn">
+            <FaEdit />
+          </button>
+          <button onClick={handleDelete} className="delete-btn">
+            <FaTrash />
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 };
 
-export default TaskItem;
+export default memo(TaskItem);

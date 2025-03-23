@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import AddTask from "../../Components/AddTask/AddTask";
-import { toggleComplete } from "../../redux/taskList/taskListSlice";
+import { toggleComplete } from "../../store/slices/taskListSlice";
 import { useDispatch } from "react-redux";
 import TaskItem from "../../Components/TaskItem/TaskItem";
 const AllTask = () => {
@@ -14,7 +14,7 @@ const AllTask = () => {
       {taskList.map((task) => {
         return (
           <div key={task.id}>
-            {!task.isCompleted && <TaskItem task={task} />}
+            <TaskItem task={task} />
           </div>
         );
       })}

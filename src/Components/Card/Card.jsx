@@ -5,12 +5,12 @@ import {
   addTask,
   editTask,
   removeTask,
-} from "../../redux/taskList/taskListSlice";
+} from "../../store/slices/taskListSlice";
 import {
   setAddTaskVisibility,
   setEditModalVisibility,
   setEditTodo,
-} from "../../redux/taskList/isAdd";
+} from "../../store/slices/isAdd";
 const Card = () => {
   const { isEdit, todo } = useSelector((state) => state.isAdd);
   const [title, setTitle] = useState(isEdit ? todo.title : "");
