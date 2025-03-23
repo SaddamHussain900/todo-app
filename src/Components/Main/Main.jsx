@@ -5,13 +5,21 @@ import Today from "../../Pages/Today/Today";
 import Upcoming from "../../Pages/Upcoming/Upcoming";
 import Completed from "../../Pages/Completed/Completed";
 import LoginPage from "../../Pages/LoginPage/LoginPage";
+import AuthWrapper from "../AuthWrapper/AuthWrapper";
 
 const Main = () => {
   return (
     <div className="main-container">
       <Routes>
         <Route path="*" element={<Navigate to="/todos" />} />
-        <Route path="/todos" element={<AllTask />} />
+        <Route
+          path="/todos"
+          element={
+            <AuthWrapper>
+              <AllTask />
+            </AuthWrapper>
+          }
+        />
         <Route path="today" element={<Today />} />
         <Route path="upcoming" element={<Upcoming />} />
         <Route path="completed" element={<Completed />} />
