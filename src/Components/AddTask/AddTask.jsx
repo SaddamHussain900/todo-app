@@ -7,12 +7,12 @@ import Card from "../Card/Card";
 import Modal from "../Modal/Modal";
 const AddTask = () => {
   const dispatch = useDispatch();
-  const isVisible = useSelector((state) => state.isAdd);
+  const { isAddTaskVisible } = useSelector((state) => state.isAdd);
 
   return (
     <div className="main-container">
       <Modal
-        isVisible={isVisible}
+        isVisible={isAddTaskVisible}
         onClose={() => dispatch(setAddTaskVisibility(false))}
       >
         <Card />
