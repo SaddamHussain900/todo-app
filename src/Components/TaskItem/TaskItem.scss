@@ -1,0 +1,128 @@
+.task-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 16px;
+    padding: 16px;
+    transition: all 0.3s ease;
+    
+    &.completed {
+      opacity: 0.7;
+      background-color: #f8f8f8;
+    }
+    
+    .task-view-mode {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      .task-content {
+        flex: 1;
+        
+        .task-title {
+          margin: 0 0 8px 0;
+          font-size: 18px;
+          
+          .completed & {
+            text-decoration: line-through;
+            color: #888;
+          }
+        }
+        
+        .task-description {
+          margin: 0;
+          color: #666;
+          
+          .completed & {
+            text-decoration: line-through;
+            color: #999;
+          }
+        }
+      }
+      
+      .task-actions {
+        display: flex;
+        gap: 8px;
+        
+        button {
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 8px;
+          border-radius: 4px;
+          transition: background-color 0.2s;
+          
+          &:hover {
+            background-color: #f0f0f0;
+          }
+          
+          &.toggle-btn {
+            color: #888;
+            
+            &.completed {
+              color: #4caf50;
+            }
+          }
+          
+          &.edit-btn {
+            color: #2196f3;
+          }
+          
+          &.delete-btn {
+            color: #f44336;
+          }
+        }
+      }
+    }
+    
+    .task-edit-mode {
+      input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+        
+        &:focus {
+          outline: none;
+          border-color: #2196f3;
+        }
+      }
+      
+      .task-action-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 8px;
+        
+        button {
+          padding: 8px 16px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          
+          &.cancel-btn {
+            background-color: #f5f5f5;
+            color: #666;
+            
+            &:hover {
+              background-color: #e0e0e0;
+            }
+          }
+          
+          &.save-btn {
+            background-color: #2196f3;
+            color: white;
+            
+            &:hover {
+              background-color: #0d8aee;
+            }
+          }
+        }
+      }
+    }
+  }

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Today = () => {
-  return (
-    <div>Today</div>
-  )
-}
+  return <div>Today</div>;
+};
 
-export default Today
+export default Today;
