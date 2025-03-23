@@ -1,11 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-export const isAdd=createSlice({
-    name:'isAdd',
-    initialState: false,
-    reducers:{
-        Add:(state)=>{
-         return !state}
-    }
-})
-export const {Add}=isAdd.actions;
+
+export const isAdd = createSlice({
+  name: "isAdd",
+  initialState: {
+    isAddTaskVisible: false,
+  },
+  reducers: {
+    setAddTaskVisibility: (state, { payload }) => {
+      state.isAddTaskVisible = payload;
+    },
+  },
+});
+export const { setAddTaskVisibility } = isAdd.actions;
 export default isAdd.reducer;
