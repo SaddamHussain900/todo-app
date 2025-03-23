@@ -11,5 +11,7 @@ export const isAdd = createSlice({
     },
   },
 });
+
 export const { setAddTaskVisibility } = isAdd.actions;
+
 export default isAdd.reducer;
