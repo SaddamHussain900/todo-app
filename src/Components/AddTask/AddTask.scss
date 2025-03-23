@@ -1,0 +1,22 @@
+$dark-color:rgb(0, 114, 0);
+
+.add-task-button{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    &:hover{
+        color: $dark-color;
+    }
+}
+.add-task-button button{
+    font-size: 30px;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
