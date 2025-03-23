@@ -1,35 +1,44 @@
-import React from "react";
-import { useRef } from "react";
+import React, { useCallback, useState } from "react";
 import "./Card.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask, removeTask } from "../../redux/taskList/taskListSlice";
 import { setAddTaskVisibility } from "../../redux/taskList/isAdd";
 const Card = () => {
-  const titleRef = useRef(null);
-  const descriptionRef = useRef(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   const dispatch = useDispatch();
-  const handleTask = () => {
-    const title = titleRef.current.value;
-    const description = descriptionRef.current.value;
+  const handleTask = useCallback(() => {
     if (title && description) {
-      dispatch(addTask({ title, description })); // Pass an object as payload
+      dispatch(addTask({ title, description }));
+      dispatch(setAddTaskVisibility(false));
     }
-  };
+  }, [title, description, dispatch]);
   return (
     <div className="card-container">
       <div className="title-input">
-        <input ref={titleRef} type="text" placeholder="Task title" />
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          type="text"
+          placeholder="Task title"
+        />
       </div>
       <div className="description-input">
-        <input ref={descriptionRef} type="text" placeholder="Description" />
+        <input
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          type="text"
+          placeholder="Description"
+        />
         <hr />
         <div className="card-btns">
           <button
+            type="button"
             onClick={() => dispatch(setAddTaskVisibility(false))}
             className="cancle-btn"
           >
-            Cancle
+            Cancel
           </button>
           <button onClick={handleTask} className="add-btn">
             Add task

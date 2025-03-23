@@ -2,7 +2,7 @@ import React from "react";
 import "./AddTask.scss";
 import { CiCirclePlus } from "react-icons/ci";
 import { useSelector, useDispatch } from "react-redux";
-import { Add } from "../../redux/taskList/isAdd";
+import { setAddTaskVisibility } from "../../redux/taskList/isAdd";
 import Card from "../Card/Card";
 import Modal from "../Modal/Modal";
 const AddTask = () => {
@@ -11,10 +11,16 @@ const AddTask = () => {
 
   return (
     <div className="main-container">
-      <Modal isVisible={isAddTaskVisible} onClose={() => dispatch(Add())}>
+      <Modal
+        isVisible={isAddTaskVisible}
+        onClose={() => dispatch(setAddTaskVisibility(false))}
+      >
         <Card />
       </Modal>
-      <div onClick={() => dispatch(Add())} className="add-task-button">
+      <div
+        onClick={() => dispatch(setAddTaskVisibility(true))}
+        className="add-task-button"
+      >
         <button>
           <CiCirclePlus />
         </button>
