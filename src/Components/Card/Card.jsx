@@ -3,7 +3,7 @@ import { useRef } from "react";
 import "./Card.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { addTask, removeTask } from "../../redux/taskList/taskListSlice";
-import { Add } from "../../redux/taskList/isAdd";
+import { setAddTaskVisibility } from "../../redux/taskList/isAdd";
 const Card = () => {
   const titleRef = useRef(null);
   const descriptionRef = useRef(null);
@@ -25,7 +25,10 @@ const Card = () => {
         <input ref={descriptionRef} type="text" placeholder="Description" />
         <hr />
         <div className="card-btns">
-          <button onClick={() => dispatch(Add())} className="cancle-btn">
+          <button
+            onClick={() => dispatch(setAddTaskVisibility(false))}
+            className="cancle-btn"
+          >
             Cancle
           </button>
           <button onClick={handleTask} className="add-btn">

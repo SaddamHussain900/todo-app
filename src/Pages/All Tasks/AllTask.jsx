@@ -11,19 +11,20 @@ const AllTask = () => {
   return (
     <div>
       <AddTask />
-      {taskList.map((state) => {
+      {taskList.map((task) => {
         return (
-          <div key={state.id}>
-            {!state.isCompleted && (
-              <input
-                type="checkbox"
-                checked={state.isCompleted}
-                onChange={() => {
-                  dispatch(toggleComplete(state.id));
-                }}
-              />
+          <div key={task.id}>
+            {!task.isCompleted && (
+              <TaskItem task={task} />
+              // <input
+              //   type="checkbox"
+              //   checked={state.isCompleted}
+              //   onChange={() => {
+              //     dispatch(toggleComplete(state.id));
+              //   }}
+              // />
             )}
-            {!state.isCompleted && state.title}
+            {!task.isCompleted && task.title}
           </div>
         );
       })}

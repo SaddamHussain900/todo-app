@@ -1,12 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 export const isAdd = createSlice({
   name: "isAdd",
-  initialState: false,
+  initialState: { isAddTaskVisible: false },
   reducers: {
-    Add: (state) => {
-      return !state;
+    setAddTaskVisibility: (state, { payload }) => {
+      state.isAddTaskVisible = payload;
     },
   },
 });
-export const { Add } = isAdd.actions;
+
+export const { setAddTaskVisibility } = isAdd.actions;
+
 export default isAdd.reducer;
