@@ -1,69 +1,67 @@
 $main-color: rgb(240, 255, 240);
-$main-dark-color:rgb(209, 255, 209);
-$dark-color:rgb(0, 114, 0);
-$middle-color:rgb(45, 89, 45);
-$grey-background:rgb(213, 211, 211);
-$dark-grey-background:rgb(185, 182, 182);
-.card-container{
-    margin: 18px 18px;
-    border: 1px solid black;
-    width: 50vw;
-    border-radius: 10px;
-    
-}
-.title-input input{
-    width: 80%;
-    border: none;
-    outline: none;
-    font-size: 22px;
-    font-weight: 600;
-    margin-left:8px ;
-}
-.description-input input{
-    width: 80%;
-    border: none;
-    outline: none;
-    font-size: 18px;
-    font-weight: 500;
-    margin-left:8px ;
-}
-.card-btns{
-    display: flex;
-    justify-content: end;
-    gap: 8px;
-    align-items: center;
-    margin: 8px 5px;
-}
-.add-btn{
-    color: white;
-    text-align: center;
-    background-color:$middle-color ;
-    font-size: 18px;
-    font-weight: 600;
-    border-radius: 5px;
-    border: none;
-    &:active{
-        transform: scale(0.95);
-    }
-    
-}
-.cancle-btn{
-    color: white;
-    text-align: center;
-    background-color:$grey-background ;
-    font-size: 18px;
-    font-weight: 600;
-    border-radius: 5px;
-    border: none;
-    &:hover{
-        background-color:$dark-grey-background;
-    }
-    &:active{
-        transform: scale(0.95);
-    }
-    
+$main-dark-color: rgb(209, 255, 209);
+$dark-color: rgb(0, 114, 0);
+$middle-color: rgb(45, 89, 45);
+$grey-background: rgb(213, 211, 211);
+$dark-grey-background: rgb(185, 182, 182);
 
+.card-container {
+  margin: 18px 18px;
+  border: 1px solid black;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
 }
-.description-input hr{
-    color: rgb(255, 255, 255);
+.title-input input {
+  width: 80%;
+  border: none;
+  outline: none;
+  font-size: 22px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+.description-input input {
+  width: 80%;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 8px;
+}
+.card-btns {
+  display: flex;
+  justify-content: end;
+  gap: 8px;
+  align-items: center;
+  margin: 8px 5px;
+}
+.add-btn {
+  color: white;
+  text-align: center;
+  background-color: $middle-color;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 5px;
+  border: none;
+  &:active {
+    transform: scale(0.95);
+  }
+}
+.cancle-btn {
+  color: white;
+  text-align: center;
+  background-color: $grey-background;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 5px;
+  border: none;
+  &:hover {
+    background-color: $dark-grey-background;
+  }
+  &:active {
+    transform: scale(0.95);
+  }
+}
+.description-input hr {
+  color: rgb(255, 255, 255);
 }
