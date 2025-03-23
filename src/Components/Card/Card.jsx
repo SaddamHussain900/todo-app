@@ -1,19 +1,50 @@
 import React, { useCallback, useState } from "react";
 import "./Card.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask, removeTask } from "../../redux/taskList/taskListSlice";
-import { setAddTaskVisibility } from "../../redux/taskList/isAdd";
+import {
+  addTask,
+  editTask,
+  removeTask,
+} from "../../redux/taskList/taskListSlice";
+import {
+  setAddTaskVisibility,
+  setEditModalVisibility,
+  setEditTodo,
+} from "../../redux/taskList/isAdd";
 const Card = () => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-
+  const { isEdit, todo } = useSelector((state) => state.isAdd);
+  const [title, setTitle] = useState(isEdit ? todo.title : "");
+  const [description, setDescription] = useState(
+    isEdit ? todo.description : ""
+  );
   const dispatch = useDispatch();
+
   const handleTask = useCallback(() => {
     if (title && description) {
-      dispatch(addTask({ title, description }));
+      if (isEdit) {
+        dispatch(
+          editTask({
+            id: todo.id,
+            title,
+            description,
+          })
+        );
+        dispatch(setEditModalVisibility(false));
+        dispatch(
+          setEditTodo({
+            id: 0,
+            title: "",
+            description: "",
+            isCompleted: false,
+          })
+        );
+      } else {
+        dispatch(addTask({ title, description }));
+      }
       dispatch(setAddTaskVisibility(false));
     }
-  }, [title, description, dispatch]);
+  }, [title, description, isEdit, dispatch, todo.id]);
+
   return (
     <div className="card-container">
       <div className="title-input">

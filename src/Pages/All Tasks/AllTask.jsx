@@ -14,17 +14,7 @@ const AllTask = () => {
       {taskList.map((task) => {
         return (
           <div key={task.id}>
-            {!task.isCompleted && (
-              <TaskItem task={task} />
-              // <input
-              //   type="checkbox"
-              //   checked={state.isCompleted}
-              //   onChange={() => {
-              //     dispatch(toggleComplete(state.id));
-              //   }}
-              // />
-            )}
-            {!task.isCompleted && task.title}
+            {!task.isCompleted && <TaskItem task={task} />}
           </div>
         );
       })}

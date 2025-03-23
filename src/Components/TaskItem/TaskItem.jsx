@@ -7,6 +7,11 @@ import {
 } from "../../redux/taskList/taskListSlice";
 import { FaEdit, FaTrash, FaCheck, FaTimes } from "react-icons/fa";
 import "./TaskItem.scss";
+import {
+  setAddTaskVisibility,
+  setEditModalVisibility,
+  setEditTodo,
+} from "../../redux/taskList/isAdd";
 
 const TaskItem = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -16,7 +21,10 @@ const TaskItem = ({ task }) => {
 
   // Start editing mode
   const handleEdit = () => {
-    setIsEditing(true);
+    // setIsEditing(true);
+    dispatch(setAddTaskVisibility(true));
+    dispatch(setEditTodo(task));
+    dispatch(setEditModalVisibility(true));
   };
 
   // Save edited task

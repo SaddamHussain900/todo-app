@@ -1,15 +1,15 @@
 import React from "react";
 import AddTask from "../../Components/AddTask/AddTask";
-import { toggleComplete } from "../../redux/taskList/taskListSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import TaskItem from "../../Components/TaskItem/TaskItem";
+
 const Completed = () => {
-  const dispatch = useDispatch();
   const taskList = useSelector((state) => state.taskList);
   return (
     <div>
       <AddTask />
-      {taskList.map((state) => {
-        return <div key={state.id}>{state.isCompleted && state.title}</div>;
+      {taskList.map((task) => {
+        return task.isCompleted && <TaskItem task={task} />;
       })}
     </div>
   );

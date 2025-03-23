@@ -19,7 +19,7 @@ export const taskListSlice = createSlice({
     },
     editTask: (state, action) => {
       const { id, title, description } = action.payload;
-      const task = state.find((task) => task.id == id);
+      const task = state.find((task) => task.id === id);
       if (task) {
         task.title = title;
         task.description = description;
