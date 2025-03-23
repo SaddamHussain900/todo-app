@@ -1,25 +1,33 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import AddTask from '../../Components/AddTask/AddTask'
-import { toggleComplete } from '../../redux/taskList/taskListSlice'
-import { useDispatch } from 'react-redux'
+import React from "react";
+import { useSelector } from "react-redux";
+import AddTask from "../../Components/AddTask/AddTask";
+import { toggleComplete } from "../../redux/taskList/taskListSlice";
+import { useDispatch } from "react-redux";
 const AllTask = () => {
-  const dispatch=useDispatch();
-  const taskList=useSelector((state)=>state.taskList)
-  
-  
+  const dispatch = useDispatch();
+  const taskList = useSelector((state) => state.taskList);
+
   return (
     <div>
-      
-      <AddTask/>
-      {taskList.map((state)=>{
-        return(<div key={state.id}>
-        {!state.isCompleted &&  <input type='checkbox' checked={state.isCompleted} onChange={()=>{dispatch(toggleComplete(state.id))}}/>}{!state.isCompleted && state.title}
-        </div>)
+      <AddTask />
+      {taskList.map((state) => {
+        return (
+          <div key={state.id}>
+            {!state.isCompleted && (
+              <input
+                type="checkbox"
+                checked={state.isCompleted}
+                onChange={() => {
+                  dispatch(toggleComplete(state.id));
+                }}
+              />
+            )}
+            {!state.isCompleted && state.title}
+          </div>
+        );
       })}
     </div>
-    
-  )
-}
+  );
+};
 
-export default AllTask
+export default AllTask;
