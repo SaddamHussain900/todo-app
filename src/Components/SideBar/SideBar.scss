@@ -1,61 +1,62 @@
 $main-color: rgb(240, 255, 240);
-$main-dark-color:rgb(209, 255, 209);
-$dark-color:rgb(0, 114, 0);
+$main-dark-color: rgb(209, 255, 209);
+$dark-color: rgb(0, 114, 0);
 
-.sidebar-container{
-    
-    background-color:$main-color ;
-    
-    display: flex;
-    flex-direction: column;
-    gap: 100px;
-    width: 15vw;
-    overflow: hidden;
-    padding: 20px 30px;
-    transition: width 0.3s ease;
+.sidebar-container {
+  background-color: $main-color;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 20%;
+  overflow: hidden;
+  padding: 20px 30px;
+  transition: width 0.3s ease;
 }
-.sidebar-top button{
-    display: flex;
-    align-items: center;
-    height: 25px;
-    background: transparent;
-    border: none;
-    width: 30px;
-    height: 30px;
-    // border-radius: 20px;
-    
-    font-size: 20px;
-    &:hover{
-        background-color:$main-dark-color ;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2)
-    }
-    
+.sidebar-top {
+  display: flex;
+  flex-direction: row-reverse;
 }
-.toggle{
-    display: none;
+.sidebar-top button {
+  display: flex;
+  align-items: center;
+  height: 25px;
+  background: transparent;
+  border: none;
+  width: 30px;
+  height: 30px;
+  // border-radius: 20px;
+
+  font-size: 20px;
+  &:hover {
+    background-color: $main-dark-color;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  }
 }
-.sidebar-container:has(.toggle:checked){
-    width: 0.7vw;
+.toggle {
+  display: none;
+}
+.sidebar-container:has(.toggle:checked) {
+  width: 0.7vw;
 }
 
-.sidebar-con-list{
+.sidebar-con-list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  &:hover {
+    background-color: $main-dark-color;
+    color: $dark-color;
+  }
+  &.active {
     display: flex;
     align-items: center;
     gap: 10px;
-    &:hover{
-        background-color: $main-dark-color;
-        color: $dark-color;
-    }
-    &.active{
-        display: flex;
-    align-items: center;
-    gap: 10px;
-        background-color: $main-dark-color;
-        color: $dark-color;
-    }
+    background-color: $main-dark-color;
+    color: $dark-color;
+  }
 }
-.sidebar-con-list p{
-    white-space: nowrap;
-    overflow: hidden;
-    transition: opacity 0.3s ease, width 0.3s ease;
+.sidebar-con-list p {
+  white-space: nowrap;
+  overflow: hidden;
+  transition: opacity 0.3s ease, width 0.3s ease;
 }
