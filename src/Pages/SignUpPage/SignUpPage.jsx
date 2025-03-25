@@ -10,12 +10,13 @@ const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // State for error message
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      setErrorMessage("Passwords do not match!"); // Set error message
       return;
     }
     try {
@@ -31,12 +32,12 @@ const SignUpPage = () => {
       if (response.ok) {
         navigate("/login");
       } else {
-        alert(data.message || "Signup failed");
+        setErrorMessage(data.message || "Signup failed"); // Set error message
       }
       dispatch(setLoading(false));
     } catch (error) {
       console.error("Error during signup:", error);
-      alert("An error occurred. Please try again.");
+      setErrorMessage("An error occurred. Please try again."); // Set error message
     }
   };
 
@@ -45,6 +46,8 @@ const SignUpPage = () => {
       <div className="signup-form">
         <form onSubmit={handleSubmit}>
           <h2>Sign Up</h2>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}{" "}
+          {/* Display error */}
           <input
             type="text"
             placeholder="Name"

@@ -7,6 +7,7 @@ import "./LoginPage.scss";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // State for error message
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoggedIn } = useSelector((state) => state.login);
@@ -33,12 +34,12 @@ const LoginPage = () => {
         dispatch(login({ email, token: data.token }));
         navigate("/todos");
       } else {
-        alert(data.message || "Login failed");
+        setErrorMessage(data.message || "Login failed"); // Set error message
       }
       dispatch(setLoading(false));
     } catch (error) {
       console.error("Error during login:", error);
-      alert("An error occurred. Please try again.");
+      setErrorMessage("An error occurred. Please try again."); // Set error message
     }
   };
 
@@ -46,6 +47,8 @@ const LoginPage = () => {
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}{" "}
+        {/* Display error */}
         <input
           type="email"
           placeholder="Email"
