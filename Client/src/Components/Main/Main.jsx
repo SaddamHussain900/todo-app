@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import AllTask from "../../Pages/All Tasks/AllTask";
+import AllTask from "../../Pages/AllTasks/AllTask";
 
 import Completed from "../../Pages/Completed/Completed";
 import LoginPage from "../../Pages/LoginPage/LoginPage";

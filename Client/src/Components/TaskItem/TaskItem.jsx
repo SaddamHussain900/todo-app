@@ -41,9 +41,15 @@ const TaskItem = ({ todo }) => {
               textDecoration: todo.isCompleted ? "line-through" : "inherit",
             }}
           >
-            {todo.title}
+            {todo.title.length > 50
+              ? `${todo.title.slice(0, 50)}...`
+              : todo.title}
           </h3>
-          <p className="task-description">{todo.description}</p>
+          <p className="task-description">
+            {todo.description.length > 60
+              ? `${todo.description.slice(0, 60)}...`
+              : todo.description}
+          </p>
         </div>
         <div className="task-actions">
           <button

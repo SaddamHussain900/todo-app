@@ -12,7 +12,9 @@ function App() {
     <div className="Todo-app-container">
       <BrowserRouter>
         {isLoggedIn && <SideBar />}
+
         {loading && <Loader />}
+
         <Main />
       </BrowserRouter>
     </div>
