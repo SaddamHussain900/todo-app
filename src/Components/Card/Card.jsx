@@ -22,7 +22,7 @@ const Card = () => {
   const dispatch = useDispatch();
   const handleBackendTask = () => {
     axios
-      .post("http://localhost:3001/todos", { task: task })
+      .post("http://localhost:3001/todos", { task: { title, description } })
       .then((result) => console.log(result))
       .catch((err) => console.log(err));
   };
@@ -47,6 +47,7 @@ const Card = () => {
           })
         );
       } else {
+        handleBackendTask();
         dispatch(addTask({ title, description }));
       }
       dispatch(setAddTaskVisibility(false));
