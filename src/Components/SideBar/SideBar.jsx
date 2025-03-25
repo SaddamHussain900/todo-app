@@ -6,7 +6,17 @@ import { SlCalender } from "react-icons/sl";
 import { CiCircleCheck } from "react-icons/ci";
 import { CiBoxList } from "react-icons/ci";
 import { CiMenuBurger } from "react-icons/ci";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../store/slices/loginSlice";
+
 const SideBar = () => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.login);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <div className="sidebar-container">
       <div className="sidebar-top">
@@ -16,6 +26,9 @@ const SideBar = () => {
           </label>
         </button>
         <input type="checkbox" id="toggle" className="toggle" />
+      </div>
+      <div className="user-info">
+        <h3>Welcome, {user?.name || "User"}!</h3>
       </div>
       <div className="sidebar-bottom">
         <NavLink style={{ textDecoration: "none" }} to="/">
@@ -32,6 +45,9 @@ const SideBar = () => {
           </div>
         </NavLink>
       </div>
+      <button className="logout-button" onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   );
 };

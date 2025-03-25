@@ -8,9 +8,11 @@ const Completed = () => {
   return (
     <div>
       <AddTask />
-      {taskList.map((task) => {
-        return task.isCompleted && <TaskItem task={task} />;
-      })}
+      {taskList
+        .filter((todo) => todo.isCompleted)
+        .map((task) => {
+          return task.isCompleted && <TaskItem task={task} />;
+        })}
     </div>
   );
 };

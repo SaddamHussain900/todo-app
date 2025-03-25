@@ -31,7 +31,7 @@ const LoginPage = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        dispatch(login({ email, token: data.token }));
+        dispatch(login({ email, token: data.token, name: data.name }));
         navigate("/todos");
       } else {
         setErrorMessage(data.message || "Login failed"); // Set error message

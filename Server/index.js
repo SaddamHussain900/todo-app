@@ -2,9 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const TodoModel = require("./Models/Todo");
-const UserModel = require("./Models/User"); // Import User model
-const bcrypt = require("bcrypt"); // For password hashing
-const jwt = require("jsonwebtoken"); // For token generation
+const UserModel = require("./Models/User");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 app.use(cors());
@@ -20,9 +20,8 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Failed to connect to MongoDB", err));
 
-// Middleware to authenticate and extract userId from JWT
 const authenticate = (req, res, next) => {
-  const token = req.headers.authorization?.split(" ")[1]; // Extract token from "Bearer <token>"
+  const token = req.headers.authorization?.split(" ")[1];
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
   }
@@ -38,7 +37,7 @@ const authenticate = (req, res, next) => {
 app.get("/get", (req, res) => {
   TodoModel.find()
     .then((result) => res.json(result)) // Removed console.log to correctly return the response
-    .catch((err) => res.status(500).json(err)); // Added proper error status code
+    .catch((err) => res.status(500).json(err));
 });
 
 app.post("/todos", authenticate, (req, res) => {
@@ -76,7 +75,7 @@ app.put("/todos/:id", (req, res) => {
       description: updatedTask.description,
       isCompleted: updatedTask.isCompleted,
     },
-    { new: true } // Return the updated document
+    { new: true }
   )
     .then((result) => {
       if (result) {
@@ -85,19 +84,19 @@ app.put("/todos/:id", (req, res) => {
         res.status(404).json({ message: "Todo not found" });
       }
     })
-    .catch((err) => res.status(500).json(err)); // Return error with proper status code
+    .catch((err) => res.status(500).json(err));
 });
 
 app.get("/todos", authenticate, (req, res) => {
-  TodoModel.find({ userId: req.userId }) // Fetch todos for the authenticated user
+  TodoModel.find({ userId: req.userId })
     .then((result) => res.status(200).json(result))
     .catch((err) => res.status(500).json(err));
 });
 
 app.post("/signup", async (req, res) => {
-  const { name, email, password } = req.body; // Added name
+  const { name, email, password } = req.body;
   try {
-    const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = await UserModel.create({
       name,
       email,
@@ -124,8 +123,10 @@ app.post("/login", async (req, res) => {
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    const token = jwt.sign({ id: user._id }, "secretKey", { expiresIn: "1h" }); // Generate token
-    res.status(200).json({ message: "Login successful", token });
+    const token = jwt.sign({ id: user._id }, "secretKey", { expiresIn: "1h" });
+    res
+      .status(200)
+      .json({ message: "Login successful", token, name: user.name });
   } catch (err) {
     res.status(500).json(err);
   }
