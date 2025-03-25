@@ -1,9 +1,9 @@
 import React, { memo } from "react";
 import { useDispatch } from "react-redux";
 import {
-  removeTask,
-  setTasks,
+  deleteTodo,
   toggleComplete,
+  updateTodo,
 } from "../../store/slices/taskListSlice";
 import { FaEdit, FaTrash, FaCheck } from "react-icons/fa";
 import "./TaskItem.scss";
@@ -12,7 +12,6 @@ import {
   setEditModalVisibility,
   setEditTodo,
 } from "../../store/slices/isAdd";
-import axios from "axios";
 
 const TaskItem = ({ task }) => {
   const dispatch = useDispatch();
@@ -27,30 +26,18 @@ const TaskItem = ({ task }) => {
 
   // Handle task completion toggle
   const handleToggle = () => {
-    dispatch(toggleComplete(task.id));
+    updateTodo(
+      task._id,
+      task.title,
+      task.description,
+      !task.isCompleted,
+      dispatch
+    );
   };
 
   // Handle task deletion
   const handleDelete = (id) => {
-    deleteTodo(id);
-  };
-
-  const deleteTodo = async (id) => {
-    await axios
-      .delete(`http://localhost:3001/todos/${id}`)
-      .then((result) => {
-        fetchTodos();
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const fetchTodos = async () => {
-    await axios
-      .get("http://localhost:3001/get")
-      .then((result) => {
-        dispatch(setTasks(result.data));
-      })
-      .catch((err) => console.log(err));
+    deleteTodo(id, dispatch);
   };
 
   return (

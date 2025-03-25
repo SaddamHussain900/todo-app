@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { set } from "mongoose";
 const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
   user: user ?? null,
   isLoggedIn: !!user,
+  loading: false,
 };
 
 const loginSlice = createSlice({
@@ -24,8 +26,11 @@ const loginSlice = createSlice({
       state.user = action.payload;
       state.isLoggedIn = true;
     },
+    setLoading(state, action) {
+      state.loading = action.payload;
+    },
   },
 });
 
-export const { login, logout, signup } = loginSlice.actions;
+export const { login, logout, signup, setLoading } = loginSlice.actions;
 export default loginSlice.reducer;

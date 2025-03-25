@@ -1,42 +1,24 @@
 import React, { useCallback, useState } from "react";
 import "./Card.scss";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addTask,
-  editTask,
-  removeTask,
-} from "../../store/slices/taskListSlice";
+import { createTodo, updateTodo } from "../../store/slices/taskListSlice";
 import {
   setAddTaskVisibility,
   setEditModalVisibility,
   setEditTodo,
 } from "../../store/slices/isAdd";
 const Card = () => {
-  const [task, setTask] = useState();
   const { isEdit, todo } = useSelector((state) => state.isAdd);
   const [title, setTitle] = useState(isEdit ? todo.title : "");
   const [description, setDescription] = useState(
     isEdit ? todo.description : ""
   );
   const dispatch = useDispatch();
-  const handleBackendTask = () => {
-    axios
-      .post("http://localhost:3001/todos", { task: { title, description } })
-      .then((result) => console.log(result))
-      .catch((err) => console.log(err));
-  };
 
   const handleTask = useCallback(() => {
     if (title && description) {
       if (isEdit) {
-        dispatch(
-          editTask({
-            id: todo.id,
-            title,
-            description,
-          })
-        );
+        updateTodo(todo._id, title, description, todo.isCompleted, dispatch);
         dispatch(setEditModalVisibility(false));
         dispatch(
           setEditTodo({
@@ -47,12 +29,11 @@ const Card = () => {
           })
         );
       } else {
-        handleBackendTask();
-        dispatch(addTask({ title, description }));
+        createTodo(title, description, dispatch);
       }
       dispatch(setAddTaskVisibility(false));
     }
-  }, [title, description, isEdit, dispatch, todo.id]);
+  }, [title, description, isEdit, dispatch, todo._id]);
 
   return (
     <div className="card-container">
@@ -81,7 +62,7 @@ const Card = () => {
             Cancel
           </button>
           <button onClick={handleTask} className="add-btn">
-            Add task
+            {isEdit ? "Edit" : "Add"} todo
           </button>
         </div>
       </div>

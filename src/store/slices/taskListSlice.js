@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export const taskListSlice = createSlice({
   name: "taskList",
@@ -34,3 +35,37 @@ export const taskListSlice = createSlice({
 export const { addTask, removeTask, toggleComplete, editTask, setTasks } =
   taskListSlice.actions;
 export default taskListSlice.reducer;
+
+export const deleteTodo = async (id, dispatch) => {
+  await axios
+    .delete(`http://localhost:3001/todos/${id}`)
+    .then((result) => {
+      fetchTodos(dispatch);
+    })
+    .catch((err) => console.log(err));
+};
+
+export const fetchTodos = async (dispatch) => {
+  await axios
+    .get("http://localhost:3001/get")
+    .then((result) => {
+      dispatch(setTasks(result.data));
+    })
+    .catch((err) => console.log(err));
+};
+
+export const createTodo = (title, description, dispatch) => {
+  axios
+    .post("http://localhost:3001/todos", { task: { title, description } })
+    .then((result) => fetchTodos(dispatch))
+    .catch((err) => console.log(err));
+};
+
+export const updateTodo = (id, title, description, isCompleted, dispatch) => {
+  axios
+    .put(`http://localhost:3001/todos/${id}`, {
+      task: { title, description, isCompleted },
+    })
+    .then((result) => fetchTodos(dispatch))
+    .catch((err) => console.log(err));
+};

@@ -43,6 +43,27 @@ app.delete("/todos/:id", (req, res) => {
     })
     .catch((err) => res.status(500).json(err)); // Return error with proper status code
 });
+app.put("/todos/:id", (req, res) => {
+  const { id } = req.params;
+  const updatedTask = req.body.task;
+  TodoModel.findByIdAndUpdate(
+    id,
+    {
+      title: updatedTask.title,
+      description: updatedTask.description,
+      isCompleted: updatedTask.isCompleted,
+    },
+    { new: true } // Return the updated document
+  )
+    .then((result) => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json({ message: "Todo not found" });
+      }
+    })
+    .catch((err) => res.status(500).json(err)); // Return error with proper status code
+});
 app.listen(3001, () => {
   console.log("Server is Running");
 });
