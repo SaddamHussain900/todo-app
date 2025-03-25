@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../store/slices/loginSlice";
 import { useNavigate, Link } from "react-router-dom";
-import "./LoginPage.css";
+import "./LoginPage.scss";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");

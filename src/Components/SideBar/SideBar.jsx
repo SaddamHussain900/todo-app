@@ -25,20 +25,6 @@ const SideBar = () => {
           </div>
         </NavLink>
 
-        <NavLink style={{ textDecoration: "none" }} to="today">
-          <div className="today sidebar-con-list">
-            <CiCalendarDate />
-            <p>Today</p>
-          </div>
-        </NavLink>
-
-        <NavLink style={{ textDecoration: "none" }} to="upcoming">
-          <div className="upcoming sidebar-con-list">
-            <SlCalender />
-            <p>Upcoming</p>
-          </div>
-        </NavLink>
-
         <NavLink style={{ textDecoration: "none" }} to="completed">
           <div className="completed sidebar-con-list">
             <CiCircleCheck />

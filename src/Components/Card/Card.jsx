@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import "./Card.scss";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addTask,
@@ -12,12 +13,19 @@ import {
   setEditTodo,
 } from "../../store/slices/isAdd";
 const Card = () => {
+  const [task, setTask] = useState();
   const { isEdit, todo } = useSelector((state) => state.isAdd);
   const [title, setTitle] = useState(isEdit ? todo.title : "");
   const [description, setDescription] = useState(
     isEdit ? todo.description : ""
   );
   const dispatch = useDispatch();
+  const handleBackendTask = () => {
+    axios
+      .post("http://localhost:3001/todos", { task: task })
+      .then((result) => console.log(result))
+      .catch((err) => console.log(err));
+  };
 
   const handleTask = useCallback(() => {
     if (title && description) {
