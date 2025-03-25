@@ -26,7 +26,7 @@ const SignUpPage = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, password }), // Include name in the request
+        body: JSON.stringify({ name, email: email.toLowerCase(), password }), // Include name in the request
       });
       const data = await response.json();
       if (response.ok) {
