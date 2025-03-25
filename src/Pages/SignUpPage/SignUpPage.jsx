@@ -2,24 +2,42 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./SignUpPage.scss";
+import { setLoading } from "../../store/slices/loginSlice";
 
 const SignUpPage = () => {
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-    // Dispatch sign-up action (to be implemented)
-    console.log({ name, email, password });
-    navigate("/login");
+    try {
+      dispatch(setLoading(true));
+      const response = await fetch("http://localhost:3001/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, password }), // Include name in the request
+      });
+      const data = await response.json();
+      if (response.ok) {
+        navigate("/login");
+      } else {
+        alert(data.message || "Signup failed");
+      }
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.error("Error during signup:", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../store/slices/loginSlice";
+import { login, setLoading } from "../../store/slices/loginSlice";
 import { useNavigate, Link } from "react-router-dom";
 import "./LoginPage.scss";
 
@@ -17,10 +17,29 @@ const LoginPage = () => {
     }
   }, [isLoggedIn, navigate]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login({ email }));
-    navigate("/todos");
+    try {
+      dispatch(setLoading(true));
+      const response = await fetch("http://localhost:3001/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        dispatch(login({ email, token: data.token }));
+        navigate("/todos");
+      } else {
+        alert(data.message || "Login failed");
+      }
+      dispatch(setLoading(false));
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   return (
