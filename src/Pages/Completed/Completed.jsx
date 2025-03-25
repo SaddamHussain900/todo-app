@@ -11,7 +11,13 @@ const Completed = () => {
       {taskList
         .filter((todo) => todo.isCompleted)
         .map((task) => {
-          return task.isCompleted && <TaskItem task={task} />;
+          return (
+            task.isCompleted && (
+              <div id={task._id}>
+                <TaskItem task={task} />
+              </div>
+            )
+          );
         })}
     </div>
   );

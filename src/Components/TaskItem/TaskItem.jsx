@@ -1,10 +1,6 @@
 import React, { memo } from "react";
 import { useDispatch } from "react-redux";
-import {
-  deleteTodo,
-  toggleComplete,
-  updateTodo,
-} from "../../store/slices/taskListSlice";
+import { deleteTodo, updateTodo } from "../../store/slices/taskListSlice";
 import { FaEdit, FaTrash, FaCheck } from "react-icons/fa";
 import "./TaskItem.scss";
 import {
@@ -17,15 +13,12 @@ import { setLoading } from "../../store/slices/loginSlice";
 const TaskItem = ({ task }) => {
   const dispatch = useDispatch();
 
-  // Start editing mode
   const handleEdit = () => {
-    // setIsEditing(true);
     dispatch(setAddTaskVisibility(true));
     dispatch(setEditTodo(task));
     dispatch(setEditModalVisibility(true));
   };
 
-  // Handle task completion toggle
   const handleToggle = () => {
     dispatch(setLoading(true));
     dispatch(
@@ -33,7 +26,6 @@ const TaskItem = ({ task }) => {
     );
   };
 
-  // Handle task deletion
   const handleDelete = (id) => {
     dispatch(setLoading(true));
     dispatch(deleteTodo(id));
