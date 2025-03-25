@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import AddTask from "../../Components/AddTask/AddTask";
 import { useDispatch, useSelector } from "react-redux";
 import TaskItem from "../../Components/TaskItem/TaskItem";
-import { setLoading } from "../../store/slices/loginSlice";
-import { fetchTodos } from "../../store/slices/taskListSlice";
+import { setLoading } from "../../features/slices/loginSlice";
+import { fetchTodos } from "../../features/slices/taskListSlice";
 
 const Completed = () => {
   const dispatch = useDispatch();

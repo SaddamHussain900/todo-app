@@ -1,14 +1,14 @@
 import React, { memo } from "react";
 import { useDispatch } from "react-redux";
-import { deleteTodo, updateTodo } from "../../store/slices/taskListSlice";
+import { deleteTodo, updateTodo } from "../../features/slices/taskListSlice";
 import { FaEdit, FaTrash, FaCheck } from "react-icons/fa";
 import "./TaskItem.scss";
 import {
   setAddTaskVisibility,
   setEditModalVisibility,
   setEditTodo,
-} from "../../store/slices/isAdd";
-import { setLoading } from "../../store/slices/loginSlice";
+} from "../../features/slices/isAdd";
+import { setLoading } from "../../features/slices/loginSlice";
 
 const TaskItem = ({ todo }) => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login, setLoading } from "../../store/slices/loginSlice";
+import { login, setLoading } from "../../features/slices/loginSlice";
 import { useNavigate, Link } from "react-router-dom";
 import "./LoginPage.scss";
 

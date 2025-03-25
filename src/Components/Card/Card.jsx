@@ -1,13 +1,13 @@
 import React, { useCallback, useState } from "react";
 import "./Card.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { createTodo, updateTodo } from "../../store/slices/taskListSlice";
+import { createTodo, updateTodo } from "../../features/slices/taskListSlice";
 import {
   setAddTaskVisibility,
   setEditModalVisibility,
   setEditTodo,
-} from "../../store/slices/isAdd";
-import { setLoading } from "../../store/slices/loginSlice";
+} from "../../features/slices/isAdd";
+import { setLoading } from "../../features/slices/loginSlice";
 const Card = () => {
   const { isEdit, todo } = useSelector((state) => state.isAdd);
   const [title, setTitle] = useState(isEdit ? todo.title : "");

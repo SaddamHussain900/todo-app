@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./SignUpPage.scss";
-import { setLoading } from "../../store/slices/loginSlice";
+import { setLoading } from "../../features/slices/loginSlice";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();

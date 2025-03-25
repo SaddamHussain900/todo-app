@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import AddTask from "../../Components/AddTask/AddTask";
-import { fetchTodos } from "../../store/slices/taskListSlice";
+import { fetchTodos } from "../../features/slices/taskListSlice";
 import { useDispatch } from "react-redux";
 import TaskItem from "../../Components/TaskItem/TaskItem";
-import { setLoading } from "../../store/slices/loginSlice";
+import { setLoading } from "../../features/slices/loginSlice";
 
 const AllTask = () => {
   const dispatch = useDispatch();

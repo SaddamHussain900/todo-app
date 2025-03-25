@@ -7,7 +7,7 @@ import { CiCircleCheck } from "react-icons/ci";
 import { CiBoxList } from "react-icons/ci";
 import { CiMenuBurger } from "react-icons/ci";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../store/slices/loginSlice";
+import { logout } from "../../features/slices/loginSlice";
 
 const SideBar = () => {
   const dispatch = useDispatch();
