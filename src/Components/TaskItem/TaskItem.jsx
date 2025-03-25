@@ -1,6 +1,10 @@
 import React, { memo } from "react";
 import { useDispatch } from "react-redux";
-import { removeTask, toggleComplete } from "../../store/slices/taskListSlice";
+import {
+  removeTask,
+  setTasks,
+  toggleComplete,
+} from "../../store/slices/taskListSlice";
 import { FaEdit, FaTrash, FaCheck } from "react-icons/fa";
 import "./TaskItem.scss";
 import {
@@ -8,6 +12,7 @@ import {
   setEditModalVisibility,
   setEditTodo,
 } from "../../store/slices/isAdd";
+import axios from "axios";
 
 const TaskItem = ({ task }) => {
   const dispatch = useDispatch();
@@ -26,8 +31,26 @@ const TaskItem = ({ task }) => {
   };
 
   // Handle task deletion
-  const handleDelete = () => {
-    dispatch(removeTask(task.id));
+  const handleDelete = (id) => {
+    deleteTodo(id);
+  };
+
+  const deleteTodo = async (id) => {
+    await axios
+      .delete(`http://localhost:3001/todos/${id}`)
+      .then((result) => {
+        fetchTodos();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const fetchTodos = async () => {
+    await axios
+      .get("http://localhost:3001/get")
+      .then((result) => {
+        dispatch(setTasks(result.data));
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -54,7 +77,7 @@ const TaskItem = ({ task }) => {
           <button onClick={handleEdit} className="edit-btn">
             <FaEdit />
           </button>
-          <button onClick={handleDelete} className="delete-btn">
+          <button onClick={() => handleDelete(task._id)} className="delete-btn">
             <FaTrash />
           </button>
         </div>

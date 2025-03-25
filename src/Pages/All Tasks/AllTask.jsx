@@ -9,17 +9,20 @@ import axios from "axios";
 const AllTask = () => {
   const dispatch = useDispatch();
   const taskList = useSelector((state) => state.taskList);
+
   useEffect(() => {
+    const fetchTodos = async () => {
+      await axios
+        .get("http://localhost:3001/get")
+        .then((result) => {
+          dispatch(setTasks(result.data));
+        })
+        .catch((err) => console.log(err));
+    };
+
     fetchTodos();
-  }, []);
-  const fetchTodos = async () => {
-    await axios
-      .get("http://localhost:3001/get")
-      .then((result) => {
-        dispatch(setTasks(result.data));
-      })
-      .catch((err) => console.log(err));
-  };
+  }, [dispatch]);
+
   return (
     <div>
       <AddTask />
