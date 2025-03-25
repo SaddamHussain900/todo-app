@@ -7,6 +7,7 @@ import {
   setEditModalVisibility,
   setEditTodo,
 } from "../../store/slices/isAdd";
+import { setLoading } from "../../store/slices/loginSlice";
 const Card = () => {
   const { isEdit, todo } = useSelector((state) => state.isAdd);
   const [title, setTitle] = useState(isEdit ? todo.title : "");
@@ -18,6 +19,7 @@ const Card = () => {
   const handleTask = useCallback(() => {
     if (title && description) {
       if (isEdit) {
+        dispatch(setLoading(true));
         updateTodo(todo._id, title, description, todo.isCompleted, dispatch);
         dispatch(setEditModalVisibility(false));
         dispatch(
@@ -29,11 +31,12 @@ const Card = () => {
           })
         );
       } else {
+        dispatch(setLoading(true));
         createTodo(title, description, dispatch);
       }
       dispatch(setAddTaskVisibility(false));
     }
-  }, [title, description, isEdit, dispatch, todo._id]);
+  }, [title, description, isEdit, dispatch, todo._id, todo.isCompleted]);
 
   return (
     <div className="card-container">

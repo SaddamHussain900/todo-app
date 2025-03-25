@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { setLoading } from "./loginSlice";
 
 export const taskListSlice = createSlice({
   name: "taskList",
@@ -50,6 +51,7 @@ export const fetchTodos = async (dispatch) => {
     .get("http://localhost:3001/get")
     .then((result) => {
       dispatch(setTasks(result.data));
+      dispatch(setLoading(false));
     })
     .catch((err) => console.log(err));
 };

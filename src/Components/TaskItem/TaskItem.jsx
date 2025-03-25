@@ -12,6 +12,7 @@ import {
   setEditModalVisibility,
   setEditTodo,
 } from "../../store/slices/isAdd";
+import { setLoading } from "../../store/slices/loginSlice";
 
 const TaskItem = ({ task }) => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const TaskItem = ({ task }) => {
 
   // Handle task completion toggle
   const handleToggle = () => {
+    dispatch(setLoading(true));
     updateTodo(
       task._id,
       task.title,
@@ -37,6 +39,7 @@ const TaskItem = ({ task }) => {
 
   // Handle task deletion
   const handleDelete = (id) => {
+    dispatch(setLoading(true));
     deleteTodo(id, dispatch);
   };
 
