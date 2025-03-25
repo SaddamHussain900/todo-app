@@ -9,20 +9,23 @@ import axios from "axios";
 const AllTask = () => {
   const dispatch = useDispatch();
   const taskList = useSelector((state) => state.taskList);
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:3001/get")
-  //     .then((result) =>
-  //       dispatch(
-  //         editTask({
-  //           id: todo.id,
-  //           title,
-  //           description,
-  //         })
-  //       )
-  //     )
-  //     .catch((err) => console.log(err));
-  // });
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+  const fetchTodos = async () => {
+    await axios
+      .get("http://localhost:3001/get")
+      .then((result) =>
+        dispatch(
+          editTask({
+            id: todo.id,
+            title,
+            description,
+          })
+        )
+      )
+      .catch((err) => console.log(err));
+  };
   return (
     <div>
       <AddTask />
