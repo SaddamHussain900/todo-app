@@ -40,7 +40,7 @@ const SignUpPage = () => {
       setErrorMessage("An error occurred. Please try again."); // Set error message
     }
   };
-
+  /*Added Coment*/
   return (
     <div className="signup-container">
       <div className="signup-form">
