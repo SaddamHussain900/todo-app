@@ -48,7 +48,7 @@ export const deleteTodo = async (id, dispatch) => {
 
 export const fetchTodos = async (dispatch) => {
   await axios
-    .get("http://localhost:3001/get")
+    .get("http://localhost:3001/todos")
     .then((result) => {
       dispatch(setTasks(result.data));
       dispatch(setLoading(false));

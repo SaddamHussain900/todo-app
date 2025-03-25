@@ -19,21 +19,40 @@ mongoose
   )
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Failed to connect to MongoDB", err));
+
+// Middleware to authenticate and extract userId from JWT
+const authenticate = (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1]; // Extract token from "Bearer <token>"
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+  try {
+    const decoded = jwt.verify(token, "secretKey"); // Verify token
+    req.userId = decoded.id; // Attach userId to the request
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+};
+
 app.get("/get", (req, res) => {
   TodoModel.find()
     .then((result) => res.json(result)) // Removed console.log to correctly return the response
     .catch((err) => res.status(500).json(err)); // Added proper error status code
 });
-app.post("/todos", (req, res) => {
-  const task = req.body.task;
+
+app.post("/todos", authenticate, (req, res) => {
+  const { task } = req.body;
   TodoModel.create({
     title: task.title,
     description: task.description,
-    isCompleted: false, // Added isCompleted flag with initial value false
+    isCompleted: false,
+    userId: req.userId, // Use userId from the token
   })
-    .then((result) => res.status(201).json(result)) // Return the created task
-    .catch((err) => res.status(500).json(err)); // Return error with proper status code
+    .then((result) => res.status(201).json(result))
+    .catch((err) => res.status(500).json(err));
 });
+
 app.delete("/todos/:id", (req, res) => {
   const { id } = req.params;
   TodoModel.findByIdAndDelete(id)
@@ -46,6 +65,7 @@ app.delete("/todos/:id", (req, res) => {
     })
     .catch((err) => res.status(500).json(err)); // Return error with proper status code
 });
+
 app.put("/todos/:id", (req, res) => {
   const { id } = req.params;
   const updatedTask = req.body.task;
@@ -66,6 +86,12 @@ app.put("/todos/:id", (req, res) => {
       }
     })
     .catch((err) => res.status(500).json(err)); // Return error with proper status code
+});
+
+app.get("/todos", authenticate, (req, res) => {
+  TodoModel.find({ userId: req.userId }) // Fetch todos for the authenticated user
+    .then((result) => res.status(200).json(result))
+    .catch((err) => res.status(500).json(err));
 });
 
 app.post("/signup", async (req, res) => {
