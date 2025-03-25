@@ -20,7 +20,7 @@ const Card = () => {
     if (title && description) {
       if (isEdit) {
         dispatch(setLoading(true));
-        updateTodo(todo._id, title, description, todo.isCompleted, dispatch);
+        dispatch(updateTodo(todo._id, title, description, todo.isCompleted));
         dispatch(setEditModalVisibility(false));
         dispatch(
           setEditTodo({
@@ -32,7 +32,7 @@ const Card = () => {
         );
       } else {
         dispatch(setLoading(true));
-        createTodo(title, description, dispatch);
+        dispatch(createTodo(title, description));
       }
       dispatch(setAddTaskVisibility(false));
     }

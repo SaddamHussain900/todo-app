@@ -28,19 +28,15 @@ const TaskItem = ({ task }) => {
   // Handle task completion toggle
   const handleToggle = () => {
     dispatch(setLoading(true));
-    updateTodo(
-      task._id,
-      task.title,
-      task.description,
-      !task.isCompleted,
-      dispatch
+    dispatch(
+      updateTodo(task._id, task.title, task.description, !task.isCompleted)
     );
   };
 
   // Handle task deletion
   const handleDelete = (id) => {
     dispatch(setLoading(true));
-    deleteTodo(id, dispatch);
+    dispatch(deleteTodo(id));
   };
 
   return (

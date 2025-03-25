@@ -37,16 +37,16 @@ export const { addTask, removeTask, toggleComplete, editTask, setTasks } =
   taskListSlice.actions;
 export default taskListSlice.reducer;
 
-export const deleteTodo = async (id, dispatch) => {
+export const deleteTodo = (id) => async (dispatch) => {
   await axios
     .delete(`http://localhost:3001/todos/${id}`)
     .then((result) => {
-      fetchTodos(dispatch);
+      dispatch(fetchTodos());
     })
     .catch((err) => console.log(err));
 };
 
-export const fetchTodos = async (dispatch) => {
+export const fetchTodos = () => async (dispatch) => {
   await axios
     .get("http://localhost:3001/todos")
     .then((result) => {
@@ -56,18 +56,19 @@ export const fetchTodos = async (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const createTodo = (title, description, dispatch) => {
+export const createTodo = (title, description) => async (dispatch) => {
   axios
     .post("http://localhost:3001/todos", { task: { title, description } })
-    .then((result) => fetchTodos(dispatch))
+    .then((result) => dispatch(fetchTodos()))
     .catch((err) => console.log(err));
 };
 
-export const updateTodo = (id, title, description, isCompleted, dispatch) => {
-  axios
-    .put(`http://localhost:3001/todos/${id}`, {
-      task: { title, description, isCompleted },
-    })
-    .then((result) => fetchTodos(dispatch))
-    .catch((err) => console.log(err));
-};
+export const updateTodo =
+  (id, title, description, isCompleted) => async (dispatch) => {
+    axios
+      .put(`http://localhost:3001/todos/${id}`, {
+        task: { title, description, isCompleted },
+      })
+      .then((result) => dispatch(fetchTodos()))
+      .catch((err) => console.log(err));
+  };

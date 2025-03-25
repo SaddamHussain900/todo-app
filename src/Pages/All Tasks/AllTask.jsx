@@ -12,7 +12,7 @@ const AllTask = () => {
 
   useEffect(() => {
     dispatch(setLoading(true));
-    fetchTodos(dispatch);
+    dispatch(fetchTodos());
   }, [dispatch]);
 
   return (
