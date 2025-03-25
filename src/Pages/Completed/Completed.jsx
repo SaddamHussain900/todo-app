@@ -1,24 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AddTask from "../../Components/AddTask/AddTask";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TaskItem from "../../Components/TaskItem/TaskItem";
+import { setLoading } from "../../store/slices/loginSlice";
+import { fetchTodos } from "../../store/slices/taskListSlice";
 
 const Completed = () => {
+  const dispatch = useDispatch();
   const taskList = useSelector((state) => state.taskList);
+
+  useEffect(() => {
+    dispatch(setLoading(true));
+    dispatch(fetchTodos());
+  }, [dispatch]);
   return (
     <div>
       <AddTask />
       {taskList
         .filter((todo) => todo.isCompleted)
-        .map((task) => {
-          return (
-            task.isCompleted && (
-              <div id={task._id}>
-                <TaskItem task={task} />
-              </div>
-            )
-          );
-        })}
+        .map((todo) => (
+          <div id={todo._id}>
+            <TaskItem todo={todo} />
+          </div>
+        ))}
     </div>
   );
 };

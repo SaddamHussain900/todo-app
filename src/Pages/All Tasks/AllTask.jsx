@@ -18,10 +18,10 @@ const AllTask = () => {
   return (
     <div>
       <AddTask />
-      {taskList.map((task) => {
+      {taskList.map((todo) => {
         return (
-          <div key={task._id}>
-            <TaskItem task={task} />
+          <div key={todo._id}>
+            <TaskItem todo={todo} />
           </div>
         );
       })}

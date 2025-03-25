@@ -10,19 +10,19 @@ import {
 } from "../../store/slices/isAdd";
 import { setLoading } from "../../store/slices/loginSlice";
 
-const TaskItem = ({ task }) => {
+const TaskItem = ({ todo }) => {
   const dispatch = useDispatch();
 
   const handleEdit = () => {
     dispatch(setAddTaskVisibility(true));
-    dispatch(setEditTodo(task));
+    dispatch(setEditTodo(todo));
     dispatch(setEditModalVisibility(true));
   };
 
   const handleToggle = () => {
     dispatch(setLoading(true));
     dispatch(
-      updateTodo(task._id, task.title, task.description, !task.isCompleted)
+      updateTodo(todo._id, todo.title, todo.description, !todo.isCompleted)
     );
   };
 
@@ -32,30 +32,30 @@ const TaskItem = ({ task }) => {
   };
 
   return (
-    <div className={`task-item ${task.isCompleted ? "completed" : ""}`}>
+    <div className={`task-item ${todo.isCompleted ? "completed" : ""}`}>
       <div className="task-view-mode">
         <div className="task-content">
           <h3
             className="task-title"
             style={{
-              textDecoration: task.isCompleted ? "line-through" : "inherit",
+              textDecoration: todo.isCompleted ? "line-through" : "inherit",
             }}
           >
-            {task.title}
+            {todo.title}
           </h3>
-          <p className="task-description">{task.description}</p>
+          <p className="task-description">{todo.description}</p>
         </div>
         <div className="task-actions">
           <button
             onClick={handleToggle}
-            className={`toggle-btn ${task.isCompleted ? "completed" : ""}`}
+            className={`toggle-btn ${todo.isCompleted ? "completed" : ""}`}
           >
             <FaCheck />
           </button>
           <button onClick={handleEdit} className="edit-btn">
             <FaEdit />
           </button>
-          <button onClick={() => handleDelete(task._id)} className="delete-btn">
+          <button onClick={() => handleDelete(todo._id)} className="delete-btn">
             <FaTrash />
           </button>
         </div>
